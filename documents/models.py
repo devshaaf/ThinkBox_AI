@@ -1,3 +1,31 @@
 from django.db import models
 
+from workspaces.models import WorkSpace
+from users.models import User
+
 # Create your models here.
+
+
+class Document(models.Model):
+
+    class EmbeddingStatus(models.TextChoices):
+        PENDING = 'PENDING', 'Pending'
+        PROCESSING = 'PROCESSING', 'Processing'
+        COMPLETED = 'COMPLETED', 'Completed'
+
+    workspace = models.ForeignKey(WorkSpace, on_delete=models.CASCADE)
+    uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=150)
+    description = models.TextField()
+    embeddings = models.CharField(max_length=10, choices=EmbeddingStatus.choices)
+    meta_data = models.JSONField(default=dict)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+class DocumentChunk(models.Model):
+    document = models.ForeignKey(Document, on_delete=models.CASCADE)
+    content = models.TextField()
+    chunk_index = models.IntegerField()
+    token_count = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
