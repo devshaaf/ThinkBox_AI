@@ -23,6 +23,6 @@ class ChatMessage(models.Model):
     session = models.ForeignKey(ChatSession, on_delete=models.CASCADE)
     role = models.CharField(max_length=10, choices=ChatRoles.choices)
     message = models.TextField()
-    retrieved_chunks = models.JSONField()
-    tokens_used = models.IntegerField()
+    retrieved_chunks = models.JSONField(null=True)
+    tokens_used = models.IntegerField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)

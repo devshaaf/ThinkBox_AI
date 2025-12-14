@@ -27,3 +27,6 @@ class WorkSpaceMember(models.Model):
     role = models.CharField(max_length=10, choices=Role.choices)
     permissions = models.JSONField(default=dict)
     joined_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = (workspace, user)
