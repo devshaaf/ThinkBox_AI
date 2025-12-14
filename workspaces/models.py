@@ -7,7 +7,7 @@ from users.models import User
 
 
 class WorkSpace(models.Model):
-    name = models.CharField(max_length=150, blank=True, unique=True, default='My Workspace')
+    name = models.CharField(max_length=150, blank=True, default='My Workspace')
     description = models.TextField(blank=True, null=True, help_text='Optional')
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
