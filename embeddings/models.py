@@ -5,7 +5,7 @@ from documents.models import DocumentChunk
 
 
 class Embeddings(models.Model):
-    chunk = models.ForeignKey(DocumentChunk, on_delete=models.CASCADE)
+    chunk = models.OneToOneField(DocumentChunk, on_delete=models.CASCADE)
     vector = models.JSONField()
     dimension = models.IntegerField()
     faiss_index_id = models.IntegerField(null=True)
