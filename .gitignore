@@ -80,5 +80,5 @@ coverage.xml
 .pytest_cache/
 
 # Project-specific
-requirements.txt
+# requirements.txt
 
