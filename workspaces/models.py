@@ -24,9 +24,14 @@ class WorkSpaceMember(models.Model):
 
     workspace = models.ForeignKey(WorkSpace, on_delete=models.CASCADE) 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    role = models.CharField(max_length=10, choices=Role.choices)
+    role = models.CharField(max_length=10, choices=Role.choices, default=Role.VIEWER)
     permissions = models.JSONField(default=dict)
     joined_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = (workspace, user)
+        constraints = [
+            models.UniqueConstraint(
+                fields=['workspace', 'user'],
+                name='unique_workspace_user'
+            )
+        ]
