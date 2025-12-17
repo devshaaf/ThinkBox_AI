@@ -1,6 +1,6 @@
-from django.contrib.auth.models import User
 from django.db import models
-from users.models import User
+# from django.contrib.auth import get_user_model
+from django.conf import settings
 from workspaces.models import WorkSpace
 
 # Create your models here.
@@ -8,7 +8,7 @@ from workspaces.models import WorkSpace
 
 class ChatSession(models.Model):
     workspace = models.ForeignKey(WorkSpace, on_delete=models.CASCADE)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
