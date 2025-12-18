@@ -1,0 +1,48 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto p-8 w-full">
+    <div class="flex justify-between items-center mb-10">
+        <div>
+            <h1 class="text-3xl font-bold text-white mb-2">Welcome back, {{ user.first_name|default:user.username }}</h1>
+            <p class="text-slate-400">Select a workspace to start collaborating or create a new one.</p>
+        </div>
+        <button class="bg-gradient-brand hover:brightness-110 text-white px-5 py-2.5 rounded-lg font-medium transition-all shadow-lg shadow-emerald-500/30 flex items-center gap-2">
+            <i class="ri-add-line"></i> New Workspace
+        </button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for member in workspaces %}
+        <a href="{% url 'workspace_detail' member.workspace.id %}" class="group bg-aurora-800/80 border border-aurora-700 hover:border-aurora-500 rounded-xl p-6 transition-all hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(16,185,129,0.35)] relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity pointer-events-none">
+                <i class="ri-bubble-chart-line text-6xl text-aurora-400"></i>
+            </div>
+            
+            <div class="flex items-start justify-between mb-4">
+                <div class="bg-aurora-700/40 p-3 rounded-lg">
+                    <i class="ri-building-4-fill text-aurora-400 text-xl"></i>
+                </div>
+                <span class="text-xs font-mono bg-aurora-900/80 text-slate-300 px-2 py-1 rounded border border-aurora-700/80">
+                    {{ member.role }}
+                </span>
+            </div>
+            
+            <h3 class="text-xl font-semibold text-white mb-2">{{ member.workspace.name }}</h3>
+            <p class="text-slate-400 text-sm line-clamp-2 mb-4">
+                {{ member.workspace.description|default:"No description provided." }}
+            </p>
+            
+            <div class="flex items-center text-xs text-slate-400 gap-4 mt-auto">
+                <span><i class="ri-calendar-line mr-1"></i> {{ member.joined_at|date:"M d, Y" }}</span>
+            </div>
+        </a>
+        {% empty %}
+        <div class="col-span-3 text-center py-20 bg-aurora-800/40 rounded-xl border border-dashed border-aurora-700/60">
+            <i class="ri-space-ship-line text-4xl text-aurora-400 mb-4"></i>
+            <p class="text-slate-400">You aren't part of any workspaces yet.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

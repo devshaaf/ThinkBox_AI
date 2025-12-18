@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThinkBox AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        aurora: {
+                            950: '#020617', // main background
+                            900: '#020617', // shell
+                            850: '#031720', // sidebar
+                            800: '#022c22', // cards
+                            700: '#064e3b', // borders
+                            500: '#22c55e', // primary
+                            400: '#4ade80', // accent
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .text-gradient {
+            background: linear-gradient(90deg, #22c55e, #2dd4bf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .bg-gradient-brand {
+            background: linear-gradient(120deg, #22c55e 0%, #16a34a 40%, #0f766e 100%);
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #064e3b; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-aurora-950 text-white h-screen flex overflow-hidden font-sans">
+
+    <aside class="w-64 bg-aurora-850 flex flex-col border-r border-aurora-700 flex-shrink-0">
+        <div class="p-5 border-b border-aurora-700/60">
+            <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1 flex items-center gap-1">
+                <i class="ri-archive-drawer-fill text-aurora-400"></i>
+                Workspace
+            </div>
+            <h1 class="text-xl font-bold text-gradient tracking-wide">ThinkBox AI</h1>
+        </div>
+
+        <div class="px-5 py-4 border-b border-aurora-700/60">
+            <a href="#" class="block w-full py-2.5 rounded-xl bg-gradient-brand text-white font-semibold text-center shadow-lg shadow-emerald-500/25 hover:brightness-110 transition-all flex items-center justify-center gap-2 text-sm">
+                <i class="ri-sparkling-2-line"></i> New Chat
+            </a>
+        </div>
+
+        <nav class="flex-1 px-3 py-3 space-y-1 overflow-y-auto">
+            <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-2 px-2">Navigation</div>
+            
+            <a href="{% url 'chat' %}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg bg-gradient-brand text-white shadow-md text-sm">
+                <i class="ri-message-3-line text-lg"></i>
+                <span class="font-medium">Chat</span>
+            </a>
+
+            <a href="{% url 'docs' %}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-aurora-800 transition-colors text-sm">
+                <i class="ri-file-text-line text-lg"></i>
+                <span class="font-medium">Documents</span>
+            </a>
+            
+            <a href="{% url 'member' %}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-aurora-800 transition-colors text-sm">
+                <i class="ri-group-line text-lg"></i>
+                <span class="font-medium">Members</span>
+            </a>
+
+            <a href="#" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-aurora-800 transition-colors text-sm">
+                <i class="ri-settings-3-line text-lg"></i>
+                <span class="font-medium">Settings</span>
+            </a>
+
+            <div class="mt-6">
+                <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-2 px-2">Recent Chats</div>
+                <div class="space-y-1 max-h-48 overflow-y-auto">
+                    {% for chat in recent_chats %}
+                    <a href="#" class="block px-4 py-2 text-xs text-slate-300 hover:text-white hover:bg-aurora-800 rounded-lg truncate transition-colors">
+                        {{ chat.title }}
+                    </a>
+                    {% empty %}
+                    <span class="px-4 text-xs text-slate-600">No history yet</span>
+                    {% endfor %}
+                </div>
+            </div>
+        </nav>
+    </aside>
+
+    <main class="flex-1 flex flex-col relative bg-aurora-900">
+        {% block content %}{% endblock %}
+    </main>
+
+</body>
+</html>

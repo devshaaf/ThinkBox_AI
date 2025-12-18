@@ -1,0 +1,89 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto p-8 w-full">
+    <div class="flex items-center justify-between mb-8">
+        <div>
+            <h1 class="text-2xl font-bold text-white mb-1">Profile</h1>
+            <p class="text-slate-400 text-sm">Manage your ThinkBox AI account and avatar.</p>
+        </div>
+        <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-full bg-aurora-700 flex items-center justify-center overflow-hidden">
+                {% if user.avatar %}
+                    <img src="{{ user.avatar.url }}" alt="Avatar" class="w-full h-full object-cover">
+                {% else %}
+                    <span class="text-lg font-semibold">{{ user.username|first|upper }}</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="md:col-span-2 bg-aurora-800/80 border border-aurora-700 rounded-2xl p-6">
+            <h2 class="text-sm font-semibold text-slate-200 mb-4 flex items-center gap-2">
+                <i class="ri-user-line text-aurora-400"></i>
+                Account details
+            </h2>
+
+            <form method="post" enctype="multipart/form-data" class="space-y-4">
+                {% csrf_token %}
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                    <div>
+                        <label class="block text-slate-300 mb-1" for="first_name">First name</label>
+                        <input id="first_name" name="first_name" value="{{ user.first_name }}" type="text"
+                               class="w-full rounded-xl bg-aurora-900/60 border border-aurora-700 px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-aurora-500 focus:border-aurora-500">
+                    </div>
+                    <div>
+                        <label class="block text-slate-300 mb-1" for="last_name">Last name</label>
+                        <input id="last_name" name="last_name" value="{{ user.last_name }}" type="text"
+                               class="w-full rounded-xl bg-aurora-900/60 border border-aurora-700 px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-aurora-500 focus:border-aurora-500">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                    <div>
+                        <label class="block text-slate-300 mb-1" for="email">Email</label>
+                        <input id="email" name="email" value="{{ user.email }}" type="email"
+                               class="w-full rounded-xl bg-aurora-900/60 border border-aurora-700 px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-aurora-500 focus:border-aurora-500">
+                    </div>
+                    <div>
+                        <label class="block text-slate-300 mb-1" for="username">Username</label>
+                        <input id="username" name="username" value="{{ user.username }}" type="text"
+                               class="w-full rounded-xl bg-aurora-900/60 border border-aurora-700 px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-aurora-500 focus:border-aurora-500">
+                    </div>
+                </div>
+
+                <div class="text-sm">
+                    <label class="block text-slate-300 mb-1" for="avatar">Avatar</label>
+                    <input id="avatar" name="avatar" type="file"
+                           class="w-full text-xs text-slate-400 file:mr-3 file:px-3 file:py-1.5 file:rounded-md file:border-0 file:text-xs file:font-medium file:bg-aurora-700 file:text-white hover:file:bg-aurora-600">
+                </div>
+
+                <button type="submit"
+                        class="mt-2 inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-brand text-white text-sm font-semibold shadow-md shadow-emerald-500/30 hover:brightness-110 transition-all">
+                    <i class="ri-save-3-line"></i>
+                    Save changes
+                </button>
+            </form>
+        </div>
+
+        <div class="bg-aurora-800/80 border border-aurora-700 rounded-2xl p-6 space-y-4 text-sm">
+            <h2 class="text-sm font-semibold text-slate-200 flex items-center gap-2">
+                <i class="ri-shield-keyhole-line text-aurora-400"></i>
+                Security
+            </h2>
+            <p class="text-slate-400 text-xs">
+                For security, password changes are handled on a dedicated page.
+            </p>
+            <a href="{% url 'password_change' %}"
+               class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-aurora-700 text-aurora-400 text-xs font-medium hover:bg-aurora-800 hover:border-aurora-500 hover:text-aurora-300 transition-colors">
+                <i class="ri-lock-password-line"></i>
+                Change password
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
