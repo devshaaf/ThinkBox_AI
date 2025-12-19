@@ -63,22 +63,22 @@
         <nav class="flex-1 px-3 py-3 space-y-1 overflow-y-auto">
             <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-2 px-2">Navigation</div>
             
-            <a href="{% url 'chat' %}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg bg-gradient-brand text-white shadow-md text-sm">
+            <a href="{% url 'chat' %}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg {% if request.resolver_match.url_name == 'chat' %}bg-gradient-brand text-white shadow-md{% else %}text-slate-300 hover:text-white hover:bg-aurora-800{% endif %} transition-colors text-sm">
                 <i class="ri-message-3-line text-lg"></i>
                 <span class="font-medium">Chat</span>
             </a>
 
-            <a href="{% url 'docs' %}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-aurora-800 transition-colors text-sm">
+            <a href="{% url 'docs' %}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg {% if request.resolver_match.url_name == 'docs' %}bg-gradient-brand text-white shadow-md{% else %}text-slate-300 hover:text-white hover:bg-aurora-800{% endif %} transition-colors text-sm">
                 <i class="ri-file-text-line text-lg"></i>
                 <span class="font-medium">Documents</span>
             </a>
             
-            <a href="{% url 'member' %}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-aurora-800 transition-colors text-sm">
+            <a href="{% url 'member' %}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg {% if request.resolver_match.url_name == 'member' %}bg-gradient-brand text-white shadow-md{% else %}text-slate-300 hover:text-white hover:bg-aurora-800{% endif %} transition-colors text-sm">
                 <i class="ri-group-line text-lg"></i>
                 <span class="font-medium">Members</span>
             </a>
 
-            <a href="#" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-aurora-800 transition-colors text-sm">
+            <a href="#" class="flex items-center gap-3 px-4 py-2.5 rounded-lg {% if request.resolver_match.url_name == 'profile' %}bg-gradient-brand text-white shadow-md{% else %}text-slate-300 hover:text-white hover:bg-aurora-800{% endif %} transition-colors text-sm">
                 <i class="ri-settings-3-line text-lg"></i>
                 <span class="font-medium">Settings</span>
             </a>
