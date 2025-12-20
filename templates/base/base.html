@@ -78,7 +78,7 @@
                 <span class="font-medium">Members</span>
             </a>
 
-            <a href="#" class="flex items-center gap-3 px-4 py-2.5 rounded-lg {% if request.resolver_match.url_name == 'profile' %}bg-gradient-brand text-white shadow-md{% else %}text-slate-300 hover:text-white hover:bg-aurora-800{% endif %} transition-colors text-sm">
+            <a href="{% url 'profile' %}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg {% if request.resolver_match.url_name == 'profile' %}bg-gradient-brand text-white shadow-md{% else %}text-slate-300 hover:text-white hover:bg-aurora-800{% endif %} transition-colors text-sm">
                 <i class="ri-settings-3-line text-lg"></i>
                 <span class="font-medium">Settings</span>
             </a>
