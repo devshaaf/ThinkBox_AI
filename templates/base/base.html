@@ -45,13 +45,25 @@
 </head>
 <body class="bg-aurora-950 text-white h-screen flex overflow-hidden font-sans">
 
+    {% if user.is_authenticated and request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'signup' %}
     <aside class="w-64 bg-aurora-850 flex flex-col border-r border-aurora-700 flex-shrink-0">
         <div class="p-5 border-b border-aurora-700/60">
             <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1 flex items-center gap-1">
                 <i class="ri-archive-drawer-fill text-aurora-400"></i>
                 Workspace
             </div>
-            <h1 class="text-xl font-bold text-gradient tracking-wide">ThinkBox AI</h1>
+            <div class="flex items-center justify-between mb-3">
+                <h1 class="text-xl font-bold text-gradient tracking-wide">ThinkBox AI</h1>
+                <a href="{% url 'profile' %}" class="flex-shrink-0">
+                    <div class="w-10 h-10 rounded-full bg-aurora-700 flex items-center justify-center overflow-hidden border-2 border-aurora-500 hover:border-aurora-400 transition-colors">
+                        {% if user.avatar %}
+                            <img src="{{ user.avatar.url }}" alt="Avatar" class="w-full h-full object-cover">
+                        {% else %}
+                            <span class="text-sm font-semibold">{{ user.username|first|upper }}</span>
+                        {% endif %}
+                    </div>
+                </a>
+            </div>
         </div>
 
         <div class="px-5 py-4 border-b border-aurora-700/60">
@@ -97,6 +109,7 @@
             </div>
         </nav>
     </aside>
+    {% endif %}
 
     <main class="flex-1 flex flex-col relative bg-aurora-900">
         {% block content %}{% endblock %}
