@@ -27,3 +27,20 @@ class ThinkUserForm(forms.UserCreationForm):
                 'accept': 'image/*'
             })
         }
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    avatar = forms.forms.ImageField(required=False, 
+            validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png']),
+            validate_img_size],
+            help_text='Upload a profile picture (optional, max 5MB)')
+
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email', 'username', 'avatar']
+        widgets = {
+            'avatar': forms.forms.FileInput(attrs={
+                'class': 'w-full text-xs text-slate-400 file:mr-3 file:px-3 file:py-1.5 file:rounded-md file:border-0 file:text-xs file:font-medium file:bg-aurora-700 file:text-white hover:file:bg-aurora-600',
+                'accept': 'image/*'
+            })
+        }
